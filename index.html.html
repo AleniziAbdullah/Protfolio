@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عبدالله العنزي - بورتفوليو</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f4f1eb;
+            --text-main: #182026;
+            --text-muted: #4a5568;
+            --accent-gold: #a67c52;
+            --border-color: #d1cbd8;
+            --card-bg: #ffffff;
+            --badge-hover-bg: #ece6dc;
+            --badge-hover-border: #a67c52;
+            --nav-bg: rgba(244, 241, 235, 0.95);
+        }
+        
+        body.dark-mode {
+            --bg-color: #121212;
+            --text-main: #f0f0f0;
+            --text-muted: #b0bac5;
+            --border-color: #383838;
+            --card-bg: #1a1a1a;
+            --badge-hover-bg: #2a2a2a;
+            --badge-hover-border: #a67c52;
+            --nav-bg: rgba(18, 18, 18, 0.95);
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            transition: background-color 0.25s ease, color 0.25s ease;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Navbar */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            margin: -40px -20px 40px -20px;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .nav-logo { font-size: 1.2rem; font-weight: 700; color: var(--text-main); letter-spacing: -0.3px; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 500; transition: color 0.15s ease; }
+        .nav-links a:hover { color: var(--accent-gold); }
+        
+        .nav-actions { display: flex; gap: 10px; align-items: center; }
+        
+        .icon-btn {
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 6px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-bg);
+            cursor: pointer;
+            color: var(--text-main);
+            font-family: inherit;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        
+        .icon-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+        
+        #theme-toggle { 
+            width: 38px; 
+            height: 38px; 
+            padding: 0; 
+            border-radius: 50%; 
+            font-size: 1.1rem; 
+        }
+
+        #lang-toggle {
+            min-width: 50px;
+            border-radius: 50px;
+        }
+        
+        /* Scroll to Top Button */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 999;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(166, 124, 82, 0.15);
+        }
+
+        #back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        #back-to-top:hover {
+            background-color: var(--accent-gold);
+            color: var(--bg-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(166, 124, 82, 0.25);
+        }
+
+        /* Hero Section */
+        .hero { margin-bottom: 80px; text-align: right; }
+        html[dir="ltr"] .hero { text-align: left; }
+        
+        .hero-subtitle { color: var(--accent-gold); font-size: 1rem; margin-bottom: 10px; font-weight: 700; letter-spacing: 0.2px; }
+        .hero-title { font-size: 4rem; font-weight: 800; margin-bottom: 20px; color: var(--text-main); line-height: 1.2; letter-spacing: -1px; }
+        .hero-description { font-size: 1.2rem; color: var(--text-muted); max-width: 800px; margin-bottom: 30px; }
+        
+        /* Metrics Banner */
+        .metrics-banner {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .metric-item h4 { font-size: 1.8rem; color: var(--accent-gold); margin-bottom: 5px; font-weight: 800; }
+        .metric-item p { font-size: 0.9rem; color: var(--text-muted); margin: 0; font-weight: 500; }
+
+        .tags-container { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+        
+        /* Interactive Badges Styling */
+        .tag {
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .tag:hover {
+            background-color: var(--badge-hover-bg);
+            border-color: var(--badge-hover-border);
+            color: var(--accent-gold);
+        }
+        
+        .tag::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-main);
+            color: var(--bg-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.15s ease, visibility 0.15s ease;
+            pointer-events: none;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-weight: 500;
+        }
+        
+        .tag:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Sections */
+        section { margin-bottom: 80px; }
+        .section-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 30px; }
+        .section-title { font-size: 1.8rem; font-weight: 700; color: var(--text-main); letter-spacing: -0.5px; }
+        
+        p { margin-bottom: 15px; color: var(--text-muted); font-size: 1.1rem; }
+        
+        /* Experience */
+        .job { margin-bottom: 40px; }
+        .job-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .job-title { font-size: 1.3rem; font-weight: 700; color: var(--text-main); }
+        .job-type { color: var(--text-muted); font-size: 0.9rem; background: var(--card-bg); border: 1px solid var(--border-color); padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+        .job-tasks { list-style-type: disc; padding-right: 20px; color: var(--text-muted); }
+        html[dir="ltr"] .job-tasks { padding-right: 0; padding-left: 20px; }
+        .job-tasks li { margin-bottom: 10px; font-size: 1.05rem; }
+        
+        /* Case Study Card */
+        .case-study-card {
+            background-color: var(--card-bg);
+            border: 2px solid var(--accent-gold);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(166, 124, 82, 0.06);
+        }
+        .case-study-title { font-size: 1.4rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 15px; }
+        .case-study-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 20px; }
+        .case-col h5 { font-size: 1rem; color: var(--text-main); margin-bottom: 5px; font-weight: 700; }
+        .case-col p { font-size: 0.95rem; color: var(--text-muted); margin: 0; }
+
+        /* Skills Grid */
+        .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+        .skill-group h3 { font-size: 1.1rem; color: var(--accent-gold); margin-bottom: 15px; font-weight: 700; }
+        
+        /* Projects */
+        .project-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px; 
+            margin-bottom: 20px;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        .project-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 6px 18px rgba(166, 124, 82, 0.08);
+        }
+        .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .project-title { font-size: 1.3rem; font-weight: 700; color: var(--text-main); }
+        .project-badge { border: 1px solid #7c9489; color: #7c9489; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; background: rgba(124, 148, 137, 0.04); }
+        .project-desc { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 20px; }
+        .project-tags { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+        html[dir="ltr"] .project-tags { justify-content: flex-start; }
+
+        /* Footer centered */
+        footer { margin-top: 100px; padding: 25px 0; text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border-color); font-weight: 500; }
+        
+        @media (max-width: 768px) {
+            .skills-grid, .metrics-banner, .case-study-grid { grid-template-columns: 1fr; }
+            .hero-title { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            nav { padding: 12px 15px; margin: -40px -20px 30px -20px; }
+            #back-to-top { bottom: 20px; left: 20px; width: 40px; height: 40px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar -->
+        <nav>
+            <div class="nav-logo" data-en="Abdullah Alenizi">عبدالله العنزي</div>
+            <div class="nav-links">
+                <a href="#about" data-en="About">نبذة</a>
+                <a href="#experience" data-en="Experience">الخبرة</a>
+                <a href="#skills" data-en="Skills">المهارات</a>
+                <a href="#certifications" data-en="Certifications">الشهادات</a>
+                <a href="#projects" data-en="Projects">المشاريع</a>
+                <a href="#contact" data-en="Contact">تواصل</a>
+            </div>
+            <div class="nav-actions">
+                <a href="abdullah-alenizi-cv PO.pdf" download class="icon-btn" data-en="Download CV" data-ar="تحميل السيرة الذاتية">تحميل السيرة الذاتية</a>
+                <button class="icon-btn" id="lang-toggle">EN</button>
+                <button class="icon-btn" id="theme-toggle" title="تغيير الثيم / Toggle Theme">◑</button>
+            </div>
+        </nav>
+
+        <!-- Scroll to Top Button -->
+        <button id="back-to-top" title="العودة للأعلى / Back to Top">↑</button>
+
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="hero-subtitle" data-en="IT Systems Analyst • Technical Product Manager" data-ar="محلل أنظمة معلومات • مدير منتج تقني">محلل أنظمة معلومات • مدير منتج تقني</div>
+            <h1 class="hero-title" data-en="Abdullah Alenizi" data-ar="عبدالله العنزي">عبدالله العنزي</h1>
+            <p class="hero-description" style="color: var(--text-main); font-size: 1.3rem;" data-en="Over five years in the Saudi Banking and Financial Services sector" data-ar="أكثر من خمس سنوات في القطاع البنكي والخدمات المالية السعودية">أكثر من خمس سنوات في القطاع البنكي والخدمات المالية السعودية</p>
+            <p class="hero-description" data-en="I operate at the intersection of core banking systems and business requirements. I translate complex operations in T24, Newgen, and Oracle Financial Services into clear, actionable technical documentation. Additionally, I build AI tools and develop indie games." data-ar="أعمل على الحد الفاصل بين الأنظمة المصرفية الأساسية ومتطلبات الأعمال — أترجم عمليات معقدة في T24 و Newgen و Oracle Financial Services إلى وثائق ومتطلبات واضحة تنفّذ فعلاً. بجانب ذلك، أبني أدوات ذكاء اصطناعي، وألعاب مستقلة.">
+                أعمل على الحد الفاصل بين الأنظمة المصرفية الأساسية ومتطلبات الأعمال — أترجم عمليات معقدة في T24 و Newgen و Oracle Financial Services إلى وثائق ومتطلبات واضحة تنفّذ فعلاً. بجانب ذلك، أبني أدوات ذكاء اصطناعي، وألعاب مستقلة.
+            </p>
+            
+            <!-- Metrics Banner -->
+            <div class="metrics-banner">
+                <div class="metric-item">
+                    <h4 data-en="117+" data-ar="117+">117+</h4>
+                    <p data-en="Managed IT Projects" data-ar="مشروع تقني تمت إدارتها">مشروع تقني تمت إدارتها</p>
+                </div>
+                <div class="metric-item">
+                    <h4 data-en="5+ Years" data-ar="5+ سنوات">5+ سنوات</h4>
+                    <p data-en="Banking Experience" data-ar="خبرة مصرفية متخصصة">خبرة مصرفية متخصصة</p>
+                </div>
+                <div class="metric-item">
+                    <h4 data-en="34 Projects" data-ar="34 مشروع">34 مشروع</h4>
+                    <p data-en="Revenue & Growth Focused" data-ar="مخصصة لدعم نمو الإيرادات">مخصصة لدعم نمو الإيرادات</p>
+                </div>
+            </div>
+
+            <div class="tags-container">
+                <span class="tag" data-en="Power BI" data-ar="Power BI" data-tooltip-ar="أداة تحليل بيانات وتقارير تنفيذية" data-tooltip-en="Data Analysis & BI Reporting Tool" data-tooltip="أداة تحليل بيانات وتقارير تنفيذية">Power BI</span>
+                <span class="tag" data-en="PMI-PBA®" data-ar="®PMI-PBA" data-tooltip-ar="شهادة محترف تحليل الأعمال المعتمدة" data-tooltip-en="PMI Professional in Business Analysis" data-tooltip="شهادة محترف تحليل الأعمال المعتمدة">®PMI-PBA</span>
+                <span class="tag" data-en="SAP" data-ar="SAP" data-tooltip-ar="نظام تخطيط موارد المؤسسات" data-tooltip-en="Enterprise Resource Planning System" data-tooltip="نظام تخطيط موارد المؤسسات">SAP</span>
+                <span class="tag" data-en="Oracle Financial Services" data-ar="Oracle Financial Services" data-tooltip-ar="أنظمة الخدمات المالية المصرفية" data-tooltip-en="Oracle Financial Services Suite" data-tooltip="أنظمة الخدمات المالية المصرفية">Oracle Financial Services</span>
+                <span class="tag" data-en="Newgen" data-ar="Newgen" data-tooltip-ar="نظام إدارة دورة حياة القروض وعمليات الائتمان" data-tooltip-en="Loan Origination & Workflow System" data-tooltip="نظام إدارة دورة حياة القروض وعمليات الائتمان">Newgen</span>
+                <span class="tag" data-en="T24" data-ar="T24" data-tooltip-ar="النظام المصرفي الأساسي" data-tooltip-en="Core Banking System" data-tooltip="النظام المصرفي الأساسي">T24</span>
+            </div>
+        </header>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="section-header">
+                <h2 class="section-title" data-en="About" data-ar="نبذة">نبذة</h2>
+            </div>
+            <p data-en="My expertise is centered in the Saudi banking sector, having worked as a contractor with Alrajhi Bank and SAB (SAB). I specialize in systems analysis, Business Requirements Documents (BRD), gap analysis, and User Acceptance Testing (UAT) for projects involving corporate lending, social financing, and credit systems." data-ar="خبرتي تركّزت في القطاع البنكي السعودي، حيث عملت عبر ترتيبات تعاقد من الباطن مع بنك الراجحي والبنك الأول، على تحليل الأنظمة، وكتابة وثائق متطلبات الأعمال (BRD)، وتحليل الفجوات، وإدارة اختبارات القبول (UAT) لمشاريع تمس القروض المؤسسية، والتمويل الاجتماعي، وأنظمة الائتمان.">
+                خبرتي تركّزت في القطاع البنكي السعودي، حيث عملت عبر ترتيبات تعاقد من الباطن مع بنك الراجحي والبنك الأول، على تحليل الأنظمة، وكتابة وثائق متطلبات الأعمال (BRD)، وتحليل الفجوات، وإدارة اختبارات القبول (UAT) لمشاريع تمس القروض المؤسسية، والتمويل الاجتماعي، وأنظمة الائتمان.
+            </p>
+            <p data-en="Certified PMI-PBA® professional, currently studying Information Technology with a focus on Cybersecurity. I utilize JIRA, Confluence, and Power BI daily within SAMA-regulated environments." data-ar="حاصل على شهادة ®PMI-PBA، وأعمل حاليًا على دراسة تقنية المعلومات بتركيز على الأمن السيبراني. أستخدم JIRA و Confluence و Power BI يوميًا ضمن بيئات خاضعة لتنظيم ساما (SAMA).">
+                حاصل على شهادة ®PMI-PBA، وأعمل حاليًا على دراسة تقنية المعلومات بتركيز على الأمن السيبراني. أستخدم JIRA و Confluence و Power BI يوميًا ضمن بيئات خاضعة لتنظيم ساما (SAMA).
+            </p>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Experience" data-ar="الخبرة المهنية">الخبرة المهنية</h2>
+            </div>
+            
+            <div class="job">
+                <div class="job-header">
+                    <h3 class="job-title" data-en="Alrajhi Bank — Corporate & SME Banking Group" data-ar="بنك الراجحي — مجموعة الأعمال المصرفية للشركات وقطاع الشركات الصغيرة والمتوسطة">بنك الراجحي — مجموعة الأعمال المصرفية للشركات وقطاع الشركات الصغيرة والمتوسطة</h3>
+                    <span class="job-type" data-en="Subcontractor" data-ar="تعاقد من الباطن">تعاقد من الباطن</span>
+                </div>
+                <ul class="job-tasks">
+                    <li data-en="Prepared Business Requirements Documents (BRDs) and gap analysis for supported financing programs like the Social Infrastructure Financing Program (SIFP)." data-ar="إعداد وثائق متطلبات الأعمال (BRD) وملاحقها لبرامج التمويل المدعومة مثل برنامج تمويل البنية التحتية الاجتماعية (SIFP).">إعداد وثائق متطلبات الأعمال (BRD) وملاحقها لبرامج التمويل المدعومة مثل برنامج تمويل البنية التحتية الاجتماعية (SIFP).</li>
+                    <li data-en="Drafted product guides for entities such as the Saudi EXIM Bank and the Kafalah Funding Program (CFP)." data-ar="صياغة وثائق وأدلة المنتجات لبرامج مثل بنك التصدير والاستيراد (EXIM) وبرامج الكفالة (CFP).">صياغة وثائق وأدلة المنتجات لبرامج مثل بنك التصدير والاستيراد (EXIM) وبرامج الكفالة (CFP).</li>
+                    <li data-en="Analyzed Newgen system requirements to improve the Turnaround Time (TAT) for loan processing, and developed the Recovery & Collection Module with AxeFinance." data-ar="تحليل متطلبات نظام Newgen لتحسين زمن دورة القروض (TAT)، وتطوير وحدة التحصيل بالتعاون مع AxeFinance.">تحليل متطلبات نظام Newgen لتحسين زمن دورة القروض (TAT)، وتطوير وحدة التحصيل بالتعاون مع AxeFinance.</li>
+                    <li data-en="Worked on Open Banking initiatives and analyzed the customer journey across branches." data-ar="العمل على مشاريع المصرفية المفتوحة (Open Banking) وتحليل رحلة العميل في الفروع وتحديثات الجدولة (Rescheduling).">العمل على مشاريع المصرفية المفتوحة (Open Banking) وتحليل رحلة العميل في الفروع وتحديثات الجدولة (Rescheduling).</li>
+                    <li data-en="Built and managed dynamic IT Project Tracker dashboards using Excel across multiple releases." data-ar="بناء وإدارة ملفات تتبع ديناميكية لمشاريع تقنية المعلومات (IT Projects) على Excel.">بناء وإدارة ملفات تتبع ديناميكية لمشاريع تقنية المعلومات (IT Projects) على Excel.</li>
+                </ul>
+            </div>
+
+            <!-- Case Study Spotlight -->
+            <div class="case-study-card">
+                <div class="case-study-title" data-en="Case Study Spotlight: Digital Transformation & Loan TAT Optimization" data-ar="قصة نجاح بارزة: التحسين الرقمي وتقليص زمن معالجة القروض (TAT)">قصة نجاح بارزة: التحسين الرقمي وتقليص زمن معالجة القروض (TAT)</div>
+                <p data-en="A detailed breakdown of driving a core lending system enhancement project within Alrajhi Bank to streamline corporate and SME finance operations." data-ar="نظرة تفصيلية على قيادة مشروع تحسين أنظمة الإقراض المؤسسي في بنك الراجحي ورفع كفاءة العمليات التشغيلية.">نظرة تفصيلية على قيادة مشروع تحسين أنظمة الإقراض المؤسسي في بنك الراجحي ورفع كفاءة العمليات التشغيلية.</p>
+                <div class="case-study-grid">
+                    <div class="case-col">
+                        <h5 data-en="1. The Challenge" data-ar="1. التحدي">1. التحدي</h5>
+                        <p data-en="Long turnaround times (TAT) in processing MSB and SME financing applications through the Newgen LOS platform, coupled with manual exception tracking." data-ar="ارتفاع زمن دورة معالجة طلبات تمويل الشركات الصغيرة والمتوسطة عبر نظام Newgen LOS واعتماد العمليات على المتابعة اليدوية.">ارتفاع زمن دورة معالجة طلبات تمويل الشركات الصغيرة والمتوسطة عبر نظام Newgen LOS واعتماد العمليات على المتابعة اليدوية.</p>
+                    </div>
+                    <div class="case-col">
+                        <h5 data-en="2. My Role" data-ar="2. دَوري">2. دَوري</h5>
+                        <p data-en="Led requirements gathering, authored comprehensive BRDs, conducted gap analysis, and aligned cross-functional IT and business stakeholders under SAMA standards." data-ar="قمت بقيادة جلسات جمع المتطلبات، كتابة وثائق BRD وتحليل الفجوات، وتنسيق الجهود بين الفرق التقنية والتجارية ضمن بيئة خاضعة لـ SAMA.">قمت بقيادة جلسات جمع المتطلبات، كتابة وثائق BRD وتحليل الفجوات، وتنسيق الجهود بين الفرق التقنية والتجارية ضمن بيئة خاضعة لـ SAMA.</p>
+                    </div>
+                    <div class="case-col">
+                        <h5 data-en="3. The Result" data-ar="3. النتيجة">3. النتيجة</h5>
+                        <p data-en="Optimized workflow stages, automated tracking dashboards via Excel/Power BI, and significantly improved processing efficiency and visibility across 117+ projects." data-ar="تم تحسين مراحل سير العمل، أتمتة لوحات المتابعة عبر Excel و Power BI، ورفع كفاءة وموثوقية دورة حياة المنتجات عبر إدارة أكثر من 117 مشروعاً.">تم تحسين مراحل سير العمل، أتمتة لوحات المتابعة عبر Excel و Power BI، ورفع كفاءة وموثوقية دورة حياة المنتجات عبر إدارة أكثر من 117 مشروعاً.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <h3 class="job-title" data-en="SAB — SME Banking" data-ar="البنك الأول — قطاع الشركات الصغيرة والمتوسطة">البنك الأول — قطاع الشركات الصغيرة والمتوسطة</h3>
+                    <span class="job-type" data-en="Subcontractor" data-ar="تعاقد من الباطن">تعاقد من الباطن</span>
+                </div>
+                <ul class="job-tasks">
+                    <li data-en="Prepared UAT scenario documentation for improving loan turnaround time (TAT) on the Newgen LOS system." data-ar="أعددت وثيقة سيناريوهات اختبار القبول (UAT) لمشروع تحسين زمن دورة معالجة القروض (TAT) على نظام Newgen LOS.">أعددت وثيقة سيناريوهات اختبار القبول (UAT) لمشروع تحسين زمن دورة معالجة القروض (TAT) على نظام Newgen LOS.</li>
+                    <li data-en="Worked on banking policy documents and BRDs within the Corporate Banking group." data-ar="عملت على وثائق سياسات و BRD مصرفية ضمن مجموعة الأعمال المصرفية للشركات.">عملت على وثائق سياسات و BRD مصرفية ضمن مجموعة الأعمال المصرفية للشركات.</li>
+                </ul>
+
+            <!-- SAB Case Study Spotlight -->
+            <div class="case-study-card" style="border-color: #7c9489; margin-top: 25px;">
+                <div class="case-study-title" style="color: #7c9489;" data-en="Case Study Spotlight: SAB Migration Project" data-ar="قصة نجاح بارزة: مشروع ترحيل عملاء البنك الأول">قصة نجاح بارزة: مشروع ترحيل عملاء البنك الأول</div>
+                <p data-en="Successfully transitioning clients from legacy systems to a modern platform across 9 months." data-ar="قيادة نجاح عملية الترحيل الشاملة من النظام القديم إلى النظام الحديث لأكثر من 1200 عميل خلال 9 أشهر فقط.">قيادة نجاح عملية الترحيل الشاملة من النظام القديم إلى النظام الحديث لأكثر من 1200 عميل خلال 9 أشهر فقط.</p>
+                <div class="case-study-grid">
+                    <div class="case-col">
+                        <h5 data-en="1. The Challenge" data-ar="1. التحدي">1. التحدي</h5>
+                        <p data-en="Migrating over 1,200 corporate clients from a legacy core system to a new digital platform with minimal disruption to ongoing credit and daily banking operations." data-ar="ترحيل أكثر من 1200 عميل من الأنظمة القديمة إلى النظام الحديث وسط تعقيدات تشغيلية وحاجة لضمان استمرارية الأعمال.">ترحيل أكثر من 1200 عميل من الأنظمة القديمة إلى النظام الحديث وسط تعقيدات تشغيلية وحاجة لضمان استمرارية الأعمال.</p>
+                    </div>
+                    <div class="case-col">
+                        <h5 data-en="2. My Role" data-ar="2. دَوري">2. دَوري</h5>
+                        <p data-en="Managed client communication channels, orchestrated the end-to-end migration roadmap, and led comprehensive training sessions on the new system within a strict 9-month timeframe." data-ar="إدارة خطة التواصل المباشر مع العملاء، تنسيق خارطة طريق الترحيل، وقيادة برامج تدريبية متكاملة لتمكينهم من النظام الجديد خلال 9 أشهر فقط.">إدارة خطة التواصل المباشر مع العملاء، تنسيق خارطة طريق الترحيل، وقيادة برامج تدريبية متكاملة لتمكينهم من النظام الجديد خلال 9 أشهر فقط.</p>
+                    </div>
+                    <div class="case-col">
+                        <h5 data-en="3. The Result" data-ar="3. النتيجة">3. النتيجة</h5>
+                        <p data-en="Achieved 100% successful onboarding, zero critical operational downtime, and high user adoption rates across all migrated portfolios." data-ar="تحقيق معدل نجاح 100% في نقل العملاء، انعدام الأخطاء التشغيلية الحرجة، ورفع كفاءة التبني الفوري للنظام الجديد.">تحقيق معدل نجاح 100% في نقل العملاء، انعدام الأخطاء التشغيلية الحرجة، ورفع كفاءة التبني الفوري للنظام الجديد.</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- Albilad Bank Experience -->
+            <div class="job" style="margin-top: 50px;">
+                <div class="job-header">
+                    <h3 class="job-title" data-en="Albilad Bank" data-ar="بنك البلاد — السعودية">بنك البلاد — السعودية</h3>
+                    <span class="job-type" data-en="April 2021 - December 2021" data-ar="أبريل 2021 - ديسمبر 2021">أبريل 2021 - ديسمبر 2021</span>
+                </div>
+                <p style="color: var(--accent-gold); font-size: 0.95rem; margin-bottom: 15px;" data-en="Social Media Officer" data-ar="مسؤول وسائل التواصل الاجتماعي">مسؤول وسائل التواصل الاجتماعي</p>
+                <ul class="job-tasks">
+                    <li data-en="Designed and implemented social media strategies to boost brand visibility and engagement." data-ar="تصميم وتنفيذ استراتيجيات وسائل التواصل الاجتماعي لتعزيز ظهور العلامة التجارية وتفاعل الجمهور.">تصميم وتنفيذ استراتيجيات وسائل التواصل الاجتماعي لتعزيز ظهور العلامة التجارية وتفاعل الجمهور.</li>
+                    <li data-en="Produced tailored content for multiple platforms, aligning with audience behavior and marketing goals." data-ar="إنتاج محتوى مخصص لعدة منصات بما يتوافق مع سلوك الجمهور وأهداف التسويق.">إنتاج محتوى مخصص لعدة منصات بما يتوافق مع سلوك الجمهور وأهداف التسويق.</li>
+                    <li data-en="Analyzed performance metrics to refine campaigns and improve overall effectiveness." data-ar="تحليل مقاييس الأداء لتحسين الحملات ورفع مستوى الفعالية الكلية.">تحليل مقاييس الأداء لتحسين الحملات ورفع مستوى الفعالية الكلية.</li>
+                    <li data-en="Coordinated content calendars and collaborated with creative teams for consistent brand messaging." data-ar="تنسيق تقويم المحتوى والتعاون مع الفرق الإبداعية لضمان اتساق رسائل العلامة التجارية.">تنسيق تقويم المحتوى والتعاون مع الفرق الإبداعية لضمان اتساق رسائل العلامة التجارية.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Skills & Systems" data-ar="المهارات والأنظمة">المهارات والأنظمة</h2>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-group">
+                    <h3 data-en="Core Banking Systems" data-ar="الأنظمة المصرفية الأساسية">الأنظمة المصرفية الأساسية</h3>
+                    <div class="tags-container">
+                        <span class="tag" data-en="T24" data-ar="T24" data-tooltip-ar="النظام المصرفي الأساسي" data-tooltip-en="Core Banking System" data-tooltip="النظام المصرفي الأساسي">T24</span>
+                        <span class="tag" data-en="Newgen" data-ar="Newgen" data-tooltip-ar="نظام إدارة دورة حياة القروض وعمليات الائتمان" data-tooltip-en="Loan Origination & Workflow System" data-tooltip="نظام إدارة دورة حياة القروض وعمليات الائتمان">Newgen</span>
+                        <span class="tag" data-en="Oracle Financial Services" data-ar="Oracle Financial Services" data-tooltip-ar="أنظمة الخدمات المالية المصرفية" data-tooltip-en="Oracle Financial Services Suite" data-tooltip="أنظمة الخدمات المالية المصرفية">Oracle Financial Services</span>
+                        <span class="tag" data-en="SAP" data-ar="SAP" data-tooltip-ar="نظام تخطيط موارد المؤسسات" data-tooltip-en="Enterprise Resource Planning System" data-tooltip="نظام تخطيط موارد المؤسسات">SAP</span>
+                    </div>
+                </div>
+                
+                <div class="skill-group">
+                    <h3 data-en="Project Management & Analysis" data-ar="أدوات إدارة المشاريع والتحليل">أدوات إدارة المشاريع والتحليل</h3>
+                    <div class="tags-container">
+                        <span class="tag" data-en="JIRA" data-ar="JIRA" data-tooltip-ar="نظام إدارة ومتابعة المهام والمشاريع" data-tooltip-en="Issue & Project Tracking" data-tooltip="نظام إدارة ومتابعة المهام والمشاريع">JIRA</span>
+                        <span class="tag" data-en="Confluence" data-ar="Confluence" data-tooltip-ar="أداة التوثيق والتعاون المشترك" data-tooltip-en="Documentation & Collaboration" data-tooltip="أداة التوثيق والتعاون المشترك">Confluence</span>
+                        <span class="tag" data-en="Power BI" data-ar="Power BI" data-tooltip-ar="أداة تحليل بيانات وتقارير تنفيذية" data-tooltip-en="Data Analysis & BI Reporting Tool" data-tooltip="أداة تحليل بيانات وتقارير تنفيذية">Power BI</span>
+                        <span class="tag" data-en="Excel" data-ar="Excel" data-tooltip-ar="أداة تتبع البيانات وبناء لوحات التحكم" data-tooltip-en="Data Tracking & Dashboards" data-tooltip="أداة تتبع البيانات وبناء لوحات التحكم">Excel</span>
+                    </div>
+                </div>
+                
+                <div class="skill-group">
+                    <h3 data-en="Documentation & Methodologies" data-ar="وثائق ومنهجيات">وثائق ومنهجيات</h3>
+                    <div class="tags-container">
+                        <span class="tag" data-en="Business Requirements Document" data-ar="وثائق متطلبات الأعمال" data-tooltip-ar="وثيقة متطلبات الأعمال وتفاصيل النظام" data-tooltip-en="Business Requirements Document" data-tooltip="وثيقة متطلبات الأعمال وتفاصيل النظام">وثائق متطلبات الأعمال</span>
+                        <span class="tag" data-en="Gap Analysis" data-ar="تحليل الفجوات" data-tooltip-ar="دراسة الفجوات بين الوضع الحالي والمستهدف" data-tooltip-en="Gap Analysis between current and target state" data-tooltip="دراسة الفجوات بين الوضع الحالي والمستهدف">تحليل الفجوات</span>
+                        <span class="tag" data-en="User Acceptance Testing" data-ar="اختبار القبول" data-tooltip-ar="اختبار قبول المستخدم وضمان الجودة" data-tooltip-en="User Acceptance Testing & Quality Assurance" data-tooltip="اختبار قبول المستخدم وضمان الجودة">اختبار القبول</span>
+                    </div>
+                </div>
+                
+                <div class="skill-group">
+                    <h3 data-en="Currently Learning" data-ar="حاليًا أتعلم">حاليًا أتعلم</h3>
+                    <div class="tags-container">
+                        <span class="tag" data-en="IT — Cybersecurity" data-ar="تقنية المعلومات — الأمن السيبراني" data-tooltip-ar="دراسات تقنية المعلومات والأمن السيبراني" data-tooltip-en="Information Technology & Cyber Security" data-tooltip="دراسات تقنية المعلومات والأمن السيبراني">تقنية المعلومات — الأمن السيبراني</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Certifications & Training" data-ar="الشهادات والبرامج التدريبية">الشهادات والبرامج التدريبية</h2>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-group" style="grid-column: span 2;">
+                    <div class="tags-container" style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 15px 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="color: var(--accent-gold); font-size: 1.1rem; margin-bottom: 3px;" data-en="PMI Professional in Business Analysis (PMI-PBA®)" data-ar="شهادة محترف تحليل الأعمال المعتمدة (PMI-PBA®)">شهادة محترف تحليل الأعمال المعتمدة (PMI-PBA®)</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;" data-en="Project Management Institute (PMI) • 2025" data-ar="معهد إدارة المشاريع (PMI) • 2025">معهد إدارة المشاريع (PMI) • 2025</p>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 15px 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="color: var(--accent-gold); font-size: 1.1rem; margin-bottom: 3px;" data-en="Computer Applications" data-ar="تطبيقات الحاسب الآلي">تطبيقات الحاسب الآلي</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;" data-en="Qassim University • 2022" data-ar="جامعة القصيم • 2022">جامعة القصيم • 2022</p>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 15px 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="color: var(--accent-gold); font-size: 1.1rem; margin-bottom: 3px;" data-en="Retail Banking Foundation Professional" data-ar="محترف أساسيات الخدمات المصرفية للأفراد">محترف أساسيات الخدمات المصرفية للأفراد</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;" data-en="Financial Academy • 2021" data-ar="الأكاديمية المالية (Financial Academy) • 2021">الأكاديمية المالية (Financial Academy) • 2021</p>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 15px 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="color: var(--accent-gold); font-size: 1.1rem; margin-bottom: 3px;" data-en="BA and PM Collaboration" data-ar="التعاون بين محلل الأعمال ومدير المشروع">التعاون بين محلل الأعمال ومدير المشروع</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;" data-en="Project Management Institute (PMI)" data-ar="معهد إدارة المشاريع (PMI)">معهد إدارة المشاريع (PMI)</p>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 15px 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h4 style="color: var(--accent-gold); font-size: 1.1rem; margin-bottom: 3px;" data-en="Swift General Training" data-ar="تدريب عام سويفت (SWIFT)">تدريب عام سويفت (SWIFT)</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;" data-en="Dixio" data-ar="Dixio">Dixio</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Personal Projects" data-ar="مشاريع شخصية">مشاريع شخصية</h2>
+            </div>
+            <p style="margin-bottom: 30px;" data-en="Outside of banking, I build tools and systems from scratch — ranging from AI to video games." data-ar="خارج نطاق العمل البنكي، أبني أدوات وأنظمة من الصفر — من الذكاء الاصطناعي إلى الألعاب.">خارج نطاق العمل البنكي، أبني أدوات وأنظمة من الصفر — من الذكاء الاصطناعي إلى الألعاب.</p>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">PROTOCOL</h3>
+                    <span class="project-badge" data-en="Game Dev" data-ar="تطوير ألعاب">تطوير ألعاب</span>
+                </div>
+                <p class="project-desc" data-en="A PvP game in Unity utilizing Photon Fusion 2, based on visual logic blocks for creature behavior. Built a C# codebase of ~43 files including anti-jitter systems, drag-and-drop UI, and an offline campaign mode." data-ar="لعبة PvP في محرك Unity باستخدام Photon Fusion 2، تقوم فكرتها على برمجة سلوك المخلوقات بواسطة كتل منطقية. بنيت قاعدة كود بلغة #C تضم نحو 43 ملفًا، تشمل أنظمة لمنع التذبذب، وواجهة سحب وإفلات، ونمط حملة يعمل دون اتصال.">
+                    لعبة PvP في محرك Unity باستخدام Photon Fusion 2، تقوم فكرتها على برمجة سلوك المخلوقات بواسطة كتل منطقية. بنيت قاعدة كود بلغة #C تضم نحو 43 ملفًا، تشمل أنظمة لمنع التذبذب، وواجهة سحب وإفلات، ونمط حملة يعمل دون اتصال.
+                </p>
+                <div class="project-tags">
+                    <span class="tag" data-en="Unity" data-ar="Unity" data-tooltip-ar="محرك الألعاب" data-tooltip-en="Game Engine" data-tooltip="محرك الألعاب">Unity</span>
+                    <span class="tag" data-en="Photon Fusion 2" data-ar="Photon Fusion 2" data-tooltip-ar="مكتبة وبروتوكول الشبكات" data-tooltip-en="Networking SDK & Protocol" data-tooltip="مكتبة وبروتوكول الشبكات">Photon Fusion 2</span>
+                    <span class="tag" data-en="C#" data-ar="C#" data-tooltip-ar="لغة البرمجة الأساسية" data-tooltip-en="Core Programming Language" data-tooltip="لغة البرمجة الأساسية">C#</span>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title" data-en="Malath" data-ar="ملاذ — Malath">ملاذ — Malath</h3>
+                    <span class="project-badge" data-en="AI Product" data-ar="منتج ذكاء اصطناعي">منتج ذكاء اصطناعي</span>
+                </div>
+                <p class="project-desc" data-en="An AI-powered web assistant for inventory and procurement management targeted at coffee shops. Prepared a 20-phase roadmap converted to an interactive HTML page, alongside a comprehensive BRD covering ~50 requirements across HR, Inventory, and Finance." data-ar="مساعد ذكاء اصطناعي قائم على الويب لإدارة المخزون والمشتريات، موجّه لمحلات القهوة. أعددت خارطة طريق إطلاق من 20 مرحلة حوّلتها إلى صفحة HTML تفاعلية، ووثيقة متطلبات أعمال شاملة لبنية استيراد البيانات تغطي نحو 50 متطلبًا عبر كيانات التنظيم والموارد البشرية والمخزون والمشتريات والمالية.">
+                    مساعد ذكاء اصطناعي قائم على الويب لإدارة المخزون والمشتريات، موجّه لمحلات القهوة. أعددت خارطة طريق إطلاق من 20 مرحلة حوّلتها إلى صفحة HTML تفاعلية، ووثيقة متطلبات أعمال شاملة لبنية استيراد البيانات تغطي نحو 50 متطلبًا عبر كيانات التنظيم والموارد البشرية والمخزون والمشتريات والمالية.
+                </p>
+                <div class="project-tags">
+                    <span class="tag" data-en="Product" data-ar="منتج" data-tooltip-ar="إدارة وتطوير المنتجات" data-tooltip-en="Product Management" data-tooltip="إدارة وتطوير المنتجات">منتج</span>
+                    <span class="tag" data-en="BRD" data-ar="BRD" data-tooltip-ar="وثائق متطلبات الأعمال" data-tooltip-en="Business Requirements Document" data-tooltip="وثيقة متطلبات الأعمال">BRD</span>
+                    <span class="tag" data-en="Interactive UI" data-ar="واجهة تفاعلية" data-tooltip-ar="تجربة المستخدم والواجهات" data-tooltip-en="User Experience & UI" data-tooltip="تجربة المستخدم والواجهات">واجهة تفاعلية</span>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title" data-en="Financial Analysis Agent" data-ar="وكيل التحليل المالي">وكيل التحليل المالي</h3>
+                    <span class="project-badge" data-en="AI Agents" data-ar="وكلاء ذكاء اصطناعي">وكلاء ذكاء اصطناعي</span>
+                </div>
+                <p class="project-desc" data-en="A financial agent built on Claude Managed Agents via YAML, integrated with Gmail using MCP to output structured recommendations. Experimented with context prompt caching to optimize performance." data-ar="وكيل تحليل مالي مبني على Claude Managed Agents بصيغة YAML، مع دمج Gmail عبر MCP ومخرجات توصيات منظّمة. جرّبت خلاله أسلوب التخزين المؤقت للسياق (prompt caching) لتحسين الأداء.">
+                    وكيل تحليل مالي مبني على Claude Managed Agents بصيغة YAML، مع دمج Gmail عبر MCP ومخرجات توصيات منظّمة. جرّبت خلاله أسلوب التخزين المؤقت للسياق (prompt caching) لتحسين الأداء.
+                </p>
+                <div class="project-tags">
+                    <span class="tag" data-en="Claude" data-ar="Claude" data-tooltip-ar="نموذج الذكاء الاصطناعي" data-tooltip-en="AI Model Provider" data-tooltip="نموذج الذكاء الاصطناعي">Claude</span>
+                    <span class="tag" data-en="MCP" data-ar="MCP" data-tooltip-ar="بروتوكول سياق النموذج" data-tooltip-en="Model Context Protocol" data-tooltip="بروتوكول سياق النموذج">MCP</span>
+                    <span class="tag" data-en="Agents" data-ar="وكلاء" data-tooltip-ar="وكلاء الذكاء الاصطناعي المستقلة" data-tooltip-en="Autonomous AI Agents" data-tooltip="وكلاء الذكاء الاصطناعي المستقلة">وكلاء</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Contact" data-ar="تواصل">تواصل</h2>
+            </div>
+            
+            <div style="text-align: center; margin-bottom: 30px;">
+                <p style="font-size: 1.2rem; color: var(--text-main); max-width: 700px; margin: 0 auto;" data-en="I welcome opportunities in Technical Product Management, Business Analysis, and IT Project Management." data-ar="أرحّب بفرص في إدارة المنتجات التقنية، تحليل الأعمال، وإدارة مشاريع تقنية المعلومات.">أرحّب بفرص في إدارة المنتجات التقنية، تحليل الأعمال، وإدارة مشاريع تقنية المعلومات.</p>
+            </div>
+
+            <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 30px; max-width: 650px; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 1.3rem;">📧</span>
+                        <div>
+                            <span style="font-size: 0.85rem; color: var(--text-muted); display: block;" data-en="Email" data-ar="البريد الإلكتروني">البريد الإلكتروني</span>
+                            <a href="mailto:alonezyabdullah@gmail.com" style="color: var(--text-main); text-decoration: none; font-weight: 500; font-size: 0.95rem;">alonezyabdullah@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 1.3rem;">📱</span>
+                        <div>
+                            <span style="font-size: 0.85rem; color: var(--text-muted); display: block;" data-en="Phone" data-ar="رقم الهاتف">رقم الهاتف</span>
+                            <a href="tel:+966532115179" style="color: var(--text-main); text-decoration: none; font-weight: 500; font-size: 0.95rem;" dir="ltr">+966 53 211 5179</a>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 1.3rem;">💼</span>
+                        <div>
+                            <span style="font-size: 0.85rem; color: var(--text-muted); display: block;" data-en="LinkedIn" data-ar="لينكد إن">لينكد إن</span>
+                            <a href="https://www.linkedin.com/in/alonezyabdullah/" target="_blank" style="color: var(--text-main); text-decoration: none; font-weight: 500; font-size: 0.95rem;">in/alonezyabdullah</a>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 1.3rem;">📍</span>
+                        <div>
+                            <span style="font-size: 0.85rem; color: var(--text-muted); display: block;" data-en="Location" data-ar="الموقع">الموقع</span>
+                            <span style="color: var(--text-main); font-weight: 500; font-size: 0.95rem;" data-en="Riyadh, Saudi Arabia" data-ar="الرياض، السعودية">الرياض، السعودية</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p data-en="© Abdullah Alenizi" data-ar="© عبدالله العنزي">© عبدالله العنزي</p>
+        </footer>
+    </div>
+
+    <script>
+        // Dark Mode Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        // Language Toggle
+        const langToggle = document.getElementById('lang-toggle');
+        langToggle.addEventListener('click', () => {
+            const isEn = document.documentElement.lang === 'en';
+            
+            // Switch lang and direction
+            document.documentElement.lang = isEn ? 'ar' : 'en';
+            document.documentElement.dir = isEn ? 'rtl' : 'ltr';
+            langToggle.textContent = isEn ? 'EN' : 'عربي';
+            
+            // Swap texts and tooltips
+            document.querySelectorAll('[data-en]').forEach(el => {
+                if (!el.hasAttribute('data-ar')) {
+                    el.setAttribute('data-ar', el.innerHTML);
+                }
+                el.innerHTML = isEn ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+            });
+
+            // Update tooltips for badges (tags) based on current language
+            document.querySelectorAll('.tag').forEach(tag => {
+                const enTooltip = tag.getAttribute('data-tooltip-en');
+                const arTooltip = tag.getAttribute('data-tooltip-ar');
+                if (enTooltip && arTooltip) {
+                    tag.setAttribute('data-tooltip', isEn ? arTooltip : enTooltip);
+                }
+            });
+        });
+
+        // Back to Top Button Functionality
+        const backToTopBtn = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
